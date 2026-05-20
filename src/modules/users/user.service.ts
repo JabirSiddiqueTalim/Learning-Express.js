@@ -25,6 +25,7 @@ const createGetSingleIntoDB=async(id :string)=>{
   `, [id]);
   return result;
 }
+
 const createPutIntoDB=async(payLoad:IUser,id:string)=>
 {
   const {name, password, age}=payLoad;
@@ -34,7 +35,7 @@ const createPutIntoDB=async(payLoad:IUser,id:string)=>
     SET
      name=COALESCE($1,name),
      password=COALESCE($2,password),
-     age=COALESCE($3 ,age) 
+     age=COALESCE($3,age) 
     WHERE id=$4
     RETURNING *;
   `, [name, password, age,id])

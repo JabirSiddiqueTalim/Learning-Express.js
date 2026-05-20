@@ -4,6 +4,8 @@ import { Pool } from "pg";
 import config from "./config";
 import { pool } from "./db";
 import { userRouter } from "./modules/users/user.route";
+import { profile } from "console";
+import { profileRouter } from "./modules/profile/profile.route";
 const app: Application = express();
 
 
@@ -23,6 +25,6 @@ app.use(express.text())
 app.use(express.urlencoded({ extended: true }))
 
 app.use("/api/users",userRouter);
-app.get('/api/users',userRouter );
+app.use("/api/profile",profileRouter);
 
 export default app;
