@@ -1,15 +1,18 @@
+import { hasSubscribers } from "diagnostics_channel";
 import { pool } from "../../db";
 import type { IUser } from "./user.interface";
-
+import bcrypt from "bcrypt";
 const createUserIntoDB=async(payLoad:IUser)=>
 {
   const {name, email, password, age}=payLoad;
+  const hashPassword=await bcrypt.hash(password,10);
   const result = await pool.query(`
     INSERT INTO users(name ,email,password,age) VALUES($1,$2,$3,$4)
     RETURNING *
     `,
-    [name, email, password, age],
+    [name, email, hashPassword, age],
   );
+  delete result.rows[0].password;
   return result;
 
 }
@@ -17,6 +20,7 @@ const createGetAllIntoDB=async()=>{
   const result = await pool.query(`
     SELECT * FROM users;
   `)
+  
   return result;
 }
 const createGetSingleIntoDB=async(id :string)=>{
