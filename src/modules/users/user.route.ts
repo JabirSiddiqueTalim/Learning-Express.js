@@ -1,11 +1,11 @@
 import { Router, type Request, type Response } from "express";
 import { userController } from "./user.controller";
-
+import {auth} from "../../middleware/auth"
 
 const router=Router();
 //user 
 router.post('/', userController.createUser);
-router.get('/',userController.createGetAll )
+router.get('/',auth,userController.createGetAll )
 router.get('/:id',userController.createGetSingle )
 router.put('/:id', userController.createGetPut)
 router.delete('/:id',userController.createDelete )
