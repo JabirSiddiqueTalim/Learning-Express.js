@@ -1,5 +1,7 @@
 import { pool } from "../../db";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import config from "../../config";
 const loginService=async(payLoad:{email:"string",password:"string"})=>
 {
   const {email,password}=payLoad;
@@ -19,7 +21,16 @@ const loginService=async(payLoad:{email:"string",password:"string"})=>
   {
     throw new Error("Invalid Credentials!!")
   }
-
+  const jwtpayload ={
+    id:user.id,
+    name:user.name,
+    is_active:user.is_active,
+    email:user.email,
+  }
+  const accessToken=jwt.sign(jwtpayload,config.secret as string,{
+    expiresIn:"1d"
+  })
+  return {accessToken}
   
 }
 

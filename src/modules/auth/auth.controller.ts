@@ -8,12 +8,12 @@ const loginController=async(req:Request,res:Response)=>
    try {
     const result=await authService.loginService(req.body)
     // console.log(result)
-      // res.status(202).json(
-      //   {
-      //     message: "",
-      //     data: result.rows[0]
-      //   }
-      // )
+      res.status(202).json(
+        {
+          message: "",
+          data: result
+        }
+      )
     
    } catch (error :any) {
     res.status(500).json(
