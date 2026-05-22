@@ -10,7 +10,7 @@ import { loginRouter } from "./modules/auth/auth.router";
 import fs from "fs";
 import logger from "./middleware/logger";
 const app: Application = express();
-
+import CookieParser from 'cookie-parser'
 app.get('/', (req: Request, res: Response) => {
   // res.send('Hello World I Am User!')
   res.status(200).json({
@@ -18,6 +18,7 @@ app.get('/', (req: Request, res: Response) => {
     "author": "Next level"
   })
 })
+app.use(CookieParser());
 app.use(logger);
 app.use(express.json())
 app.use(express.text())
