@@ -12,6 +12,7 @@ import logger from "./middleware/logger";
 const app: Application = express();
 import CookieParser from 'cookie-parser';
 import cors from "cors";
+import globalError from "./middleware/globalErrorHandle";
 app.get('/', (req: Request, res: Response) => {
   // res.send('Hello World I Am User!')
   res.status(200).json({
@@ -32,13 +33,6 @@ app.use("/api/users",userRouter);
 app.use("/api/profile",profileRouter);
 app.use("/api/auth",loginRouter)
 
-app.use((err, req, res, next) => {
-  console.error(err.stack); // Log the error
-
-  res.status(500).json({
-    success: false,
-    message: err.message || "Internal Server Error",
-  });
-});
+app.use(globalError);
 
 export default app;
