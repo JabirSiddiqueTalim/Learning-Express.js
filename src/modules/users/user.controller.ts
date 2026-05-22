@@ -7,9 +7,11 @@ const createUser=
   async (req: Request, res: Response)=> {
     // console.log(req.body);
     // const { name, email, password, age } = req.body;
+    console.log(req.user)
     try {
+     
      const result=await userService.createUserIntoDB(req.body)
-      console.log(result)
+      // console.log(result)
       res.status(202).json(
         {
           message: "Data post successfully",
