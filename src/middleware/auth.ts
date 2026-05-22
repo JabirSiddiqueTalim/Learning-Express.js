@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken"
 import { pool } from "../db";
 import type { Roles } from "../types";
 
-export const auth = (...roles:Roles[]) => {
+export const auth = (...roles: Roles[]) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     console.log(roles)
     try {
@@ -28,7 +28,7 @@ export const auth = (...roles:Roles[]) => {
       SELECT * FROM users WHERE email=$1
       `, [decoded.email])
       const user = userData.rows[0];
-  
+
       if (userData.rows[0].length === 0) {
         res.status(404).json(
           {
@@ -43,8 +43,7 @@ export const auth = (...roles:Roles[]) => {
             message: "Forbidden!!!"
           })
       }
-      if(roles.length && !roles.includes(user.role))
-      {
+      if (roles.length && !roles.includes(user.role)) {
         res.status(403).json(
           {
             success: false,
@@ -53,10 +52,10 @@ export const auth = (...roles:Roles[]) => {
 
       }
       req.user = decoded;
-  
+
       next()
-  
-  
+
+
     } catch (error) {
       next(error)
     }

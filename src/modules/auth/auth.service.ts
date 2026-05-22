@@ -31,7 +31,10 @@ const loginService=async(payLoad:{email:"string",password:"string"})=>
   const accessToken=jwt.sign(jwtpayload,config.secret as string,{
     expiresIn:"1d"
   })
-  return {accessToken}
+  const refreshToken=jwt.sign(jwtpayload,config.refreshSecret as string,{
+    expiresIn:"1d"
+  })
+  return {accessToken,refreshToken}
   
 }
 
