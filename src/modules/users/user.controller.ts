@@ -2,6 +2,7 @@ import type { Request, Response } from "express";
 import { pool } from "../../db";
 import { userService } from "./user.service";
 import strict from "assert/strict";
+import sendResponse from "../../utility/sendResponse";
 
 const createUser=
   async (req: Request, res: Response)=> {
@@ -85,7 +86,8 @@ const createUser=
           data: {}
         })
       }
-      res.status(200).json({
+      sendResponse(res,{
+        statusCode:200,
         message: "User Update successfully",
         success: true,
         data: result.rows[0]
@@ -93,10 +95,12 @@ const createUser=
   
   
     } catch (error: any) {
-      res.status(500).json(
+      sendResponse(res,
         {
+          statusCode: 500,
           message: error.message,
-          error: error
+          error: error,
+          success: false
         }
       )
   
