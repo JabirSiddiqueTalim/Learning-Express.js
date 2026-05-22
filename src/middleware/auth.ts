@@ -3,7 +3,9 @@ import type { JwtPayload } from "jsonwebtoken";
 import config from "../config";
 import jwt from "jsonwebtoken"
 import { pool } from "../db";
-export const auth = (...roles:any) => {
+import type { Roles } from "../types";
+
+export const auth = (...roles:Roles[]) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     console.log(roles)
     try {
@@ -40,6 +42,15 @@ export const auth = (...roles:any) => {
             success: false,
             message: "Forbidden!!!"
           })
+      }
+      if(roles.length && !roles.includes(user.role))
+      {
+        res.status(403).json(
+          {
+            success: false,
+            message: "Forbidden!!!"
+          })
+
       }
       req.user = decoded;
   
