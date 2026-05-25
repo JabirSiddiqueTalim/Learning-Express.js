@@ -33,7 +33,7 @@ export const auth = (...roles: Roles[]) => {
         res.status(404).json(
           {
             success: false,
-            message: "User not found!!!"
+            message: "User Not Found!!!"
           })
       }
       if (!user.is_active) {

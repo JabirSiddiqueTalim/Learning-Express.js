@@ -8,7 +8,7 @@ const createProfile=async(req:Request,res:Response)=>
     const result=await profileService.createProfileIntoDB(req.body)
     res.status(200).json(
       {
-        message: "Profile post successfully",
+        message: "Profile post successfully !!",
         data:result.rows[0], 
       }
     )

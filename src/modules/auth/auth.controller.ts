@@ -44,7 +44,7 @@ const refreshTokenController=async(req:Request,res:Response)=>
     
       res.status(200).json(
         {
-          message: "access token ",
+          message: "access token : ",
           data: result
         }
       )
